@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:app="clr-namespace:AdvancedMvvm"
+             x:DataType="app:MainViewModel"
+             x:Class="AdvancedMvvm.MainPage"
+             Title="TodoApp">
+    <VerticalStackLayout>
+        <HorizontalStackLayout>
+            <Image Source="additem.png"
+                   HeightRequest="20"
+                   WidthRequest="20"
+                   BackgroundColor="Transparent"
+                   Margin="5,2,0,2"
+                   VerticalOptions="Center"/>
+            <Entry Placeholder="Enter Todo Item Text"
+                   ReturnCommand="{Binding AddItemCommand}"
+                   ReturnCommandParameter="{Binding Source={RelativeSource Self}}"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center" />
+        </HorizontalStackLayout>
+        
+        <!-- List of items -->
+        <ListView ItemsSource="{Binding Items}"
+                  ItemTapped="OnListItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="app:TodoItemViewModel">
+                    <ViewCell>
+                        <Grid Style="{StaticResource listItemContainer}">
+                            <Label Text="{Binding Title}"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Center"/>
+                            <Image Source="completed.png"
+                                   IsVisible="{Binding IsComplete}"
+                                   HeightRequest="20"
+                                   WidthRequest="20"
+                                   HorizontalOptions="End"
+                                   VerticalOptions="Center"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>
